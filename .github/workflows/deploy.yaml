@@ -1,49 +1,35 @@
-name: Deploy React App
+name: Publish GitHub Pages
 
+# git pushをトリガにワークフローが実行される
 on:
   push:
-    branches:
-      - main
+
+# 書き込み権限の付与
+permissions:
+  contents: write
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  publish-gh-pages:
+    runs-on:
+      - ubuntu-latest
 
     steps:
-      # Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # GitHub Pagesに公開するファイルの作成
+      # 実際はGitリポジトリをチェックアウトしてそこからビルドすることが多い
+      - name: Create index.html
+        run: |
+          mkdir -p ./dist
+          echo "hello, world!" > ./dist/index.html
 
-      # Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      # GitHub Pagesに公開
+      # デフォルトではgh-pageeブランチにpushする
+      - name: Push gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          node-version: 23
-
-      # Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Build the React app
-      - name: rename project
-        run: npm run rm
-      # Build the React app
-      - name: rename project
-        run: npm run build
-      # Build the React app
-      - name: rename project
-        run: npm run mv
-
-  # deploy:
-  #   permissions:
-  #     id-token: write
-  #     contents: read
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v2
+          # Deploy keysやPersonal access Tokensも使用可能
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          # keep_filesをtrueにすると、git pushの度に一旦全てのファイルが削除される挙動を抑制できる
+          # keep_files: true
+          user_name: github-actions
+          user_email: github-actions@github.com
