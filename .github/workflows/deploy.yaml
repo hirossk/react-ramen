@@ -37,8 +37,9 @@ jobs:
         env:
           PUBLIC_URL: /Example_App
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
+          name: build-artifact
           path: './build'
 
   deploy:
