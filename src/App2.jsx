@@ -19,6 +19,7 @@ export const App = () => {
         }
     };
 
+
     // データを取得する非同期関数（店舗1つだけを取得）
     // const fetchShopOne = async (qs = '') => {
     //     try {
