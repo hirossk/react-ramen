@@ -39,7 +39,7 @@ export const AutoSuggestForm = ({onKeyDown,inputValue,setInputValue}) => {
 
   return (
     <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
-        <label htmlFor="input">お店の名前:</label>
+        <label htmlFor="input">お店の名前をローマ字で入力してください（yoshimuraya）:</label>
         <input
           id="input"
           type="text"
