@@ -25,9 +25,14 @@ jobs:
         run: npm install
 
       # Build the React app
-      - name: Build project
-        run: npm run deploy
-
+      - name: rename project
+        run: npm run rm
+      # Build the React app
+      - name: rename project
+        run: npm run build
+      # Build the React app
+      - name: rename project
+        run: npm run mv
 
   # deploy:
   #   permissions:
